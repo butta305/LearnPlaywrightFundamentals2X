@@ -1,0 +1,64 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: 04_Session_Storage\02_Tests_UsingSessionStorage.spec.ts >> go directly to dashboard — no login
+- Location: tests\04_Session_Storage\02_Tests_UsingSessionStorage.spec.ts:8:5
+
+# Error details
+
+```
+Error: expect(page).toHaveURL(expected) failed
+
+Expected pattern: /dashboard/
+Received string:  "https://app.thetestingacademy.com/playwright/ttacart/"
+Timeout: 5000ms
+
+Call log:
+  - Expect "toHaveURL" with timeout 5000ms
+    14 × locator resolved to <html lang="en">…</html>
+       - unexpected value "https://app.thetestingacademy.com/playwright/ttacart/"
+
+```
+
+```yaml
+- heading "TTACart" [level=1]
+- textbox "Username"
+- textbox "Password"
+- button "Login"
+- heading "Accepted usernames are:" [level=4]
+- paragraph: standard_user locked_out_user problem_user performance_glitch_user error_user visual_user
+- heading "Password for all users:" [level=4]
+- paragraph: tta_secret
+```
+
+# Test source
+
+```ts
+  1  | 
+  2  | import {test, expect} from "@playwright/test"
+  3  | 
+  4  | test.use({
+  5  |     storageState : "./user-session.json"
+  6  | });
+  7  | 
+  8  | test("go directly to dashboard — no login", async ({ page }) => {
+  9  |     await page.goto("https://app.thetestingacademy.com/playwright/ttacart/");
+> 10 |     await expect(page).toHaveURL(/dashboard/);
+     |                        ^ Error: expect(page).toHaveURL(expected) failed
+  11 |     console.log("Dashboard loaded — no login needed ✅");
+  12 |     await page.waitForTimeout(3000);
+  13 | });
+  14 | 
+  15 | test("go directly to settings — no login", async ({ page }) => {
+  16 |     await page.goto("https://app.vwo.com/#/settings/accounts/general?accountId=1227007");
+  17 |     await expect(page).toHaveURL(/settings/);
+  18 |     console.log("Settings loaded — still logged in ✅");
+  19 |     await page.waitForTimeout(3000);
+  20 | });
+  21 | 
+```

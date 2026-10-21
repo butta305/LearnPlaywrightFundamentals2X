@@ -42,11 +42,4 @@ test("TC#1 - Verify that the app.vwo login is not working and gives you an error
     await expect(error_message).toContainText("Your email, password, IP address or location did not match");
 
 
-
-
-
-
-
-
-
 });

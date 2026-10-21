@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Ensure 'process' is recognized in TypeScript without requiring @types/node
+declare const process: { env: { CI?: string } };
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -26,7 +29,8 @@ export default defineConfig({
   /* Keep headed runs stable by avoiding too many browser instances at once. */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  // Use the custom reporter from the Utils folder (file name: Customreport.ts)
+  reporter: [["line"], ["./Utils/Customreport.ts"]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
