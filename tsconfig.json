@@ -15,6 +15,6 @@
     "sourceMap": true,
     "baseUrl": "."
   },
-  "include": ["tests/**/*.ts", "*.ts", "playwright.config.ts"],
+  "include": ["tests/**/*.ts", "*.ts", "playwright.config.ts", "tests/19_Data_Driven_Testing/testdata/01_logindata.csv"],
   "exclude": ["node_modules", "playwright-report", "test-results"]
 }
